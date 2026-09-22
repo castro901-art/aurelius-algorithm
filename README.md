@@ -1,14 +1,14 @@
 # Aurelius Algorithm
 
-Aurelius Algorithm is the core research and reasoning layer for Aurelius, an AI model designed to help people investigate questions, organize evidence, and produce clear research outputs.
+Aurelius Algorithm is the core research and reasoning layer for Aurelius, an AI model designed to investigate questions, organize evidence, and produce clear, traceable research outputs.
 
-This repository provides the foundation for the model's algorithmic components. It is intentionally lightweight at this stage so that the research pipeline, evaluation methodology, and implementation can evolve together.
+The repository now contains a deterministic, dependency-free research pipeline foundation. It is deliberately explicit about what it knows, what sources support it, and when evidence is missing. Network retrieval and model-backed synthesis remain replaceable integrations rather than hidden behavior.
 
 ## Project goals
 
 - Build transparent and reproducible research workflows.
-- Separate evidence collection, synthesis, and answer generation.
-- Make source attribution and uncertainty visible in model outputs.
+- Separate question normalization, evidence retrieval, source ranking, synthesis, and answer generation.
+- Make source attribution, confidence, and uncertainty visible in model outputs.
 - Provide a testable foundation for future retrieval, ranking, and reasoning components.
 
 ## Repository structure
@@ -17,9 +17,13 @@ This repository provides the foundation for the model's algorithmic components. 
 .
 ├── src/
 │   ├── __init__.py
-│   └── algorithm.py       # Core Aurelius algorithm interface
-├── docs/                  # Technical design notes and research documentation
-├── tests/                 # Unit and integration tests
+│   └── algorithm.py       # Research pipeline and public interfaces
+├── docs/
+│   ├── architecture.md    # Pipeline design and extension points
+│   └── .gitkeep
+├── tests/
+│   ├── test_algorithm.py  # Deterministic behavior and safety tests
+│   └── .gitkeep
 ├── .gitignore
 ├── LICENSE
 └── README.md
@@ -27,29 +31,47 @@ This repository provides the foundation for the model's algorithmic components. 
 
 ## Getting started
 
-Aurelius currently uses Python's standard library for its placeholder core interface. Python 3.10 or newer is recommended.
+Python 3.10 or newer is recommended. The core implementation uses only the standard library. Install `pytest` to run the test suite.
 
 ```bash
 git clone https://github.com/castro901-art/aurelius-algorithm.git
 cd aurelius-algorithm
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
-python -m src.algorithm
+pip install pytest
+python -m pytest
 ```
 
-## Core interface
+## Research pipeline
 
-The initial `AureliusAlgorithm` class defines a small, stable boundary for future implementations:
+The public `AureliusAlgorithm` coordinates five stages:
+
+1. Normalize the research question.
+2. Retrieve candidate `EvidenceRecord` objects through a pluggable `Retriever`.
+3. Rank evidence with transparent relevance, credibility, and recency signals.
+4. Produce an extractive, citation-aware synthesis.
+5. Return sources, confidence, open questions, and an audit trace.
 
 ```python
-from src.algorithm import AureliusAlgorithm
+from src.algorithm import AureliusAlgorithm, EvidenceRecord, InMemoryRetriever
 
-model = AureliusAlgorithm()
-result = model.research("How do retrieval systems improve research quality?")
-print(result)
+records = [
+    EvidenceRecord(
+        id="paper-1",
+        title="Evidence-first research",
+        url="https://example.com/paper-1",
+        excerpt="Traceable evidence makes research outputs easier to audit.",
+        source_type="paper",
+        credibility=0.9,
+    )
+]
+model = AureliusAlgorithm(retriever=InMemoryRetriever(records))
+result = model.research("How does evidence improve research outputs?")
+print(result.answer)
+print(result.citations)
 ```
 
-The current implementation is a safe placeholder. It validates the research question and returns a structured result that can later be connected to retrieval, source evaluation, synthesis, and citation components.
+When no relevant evidence is available, the algorithm returns `status="needs_sources"` with zero confidence instead of fabricating an answer.
 
 ## Development principles
 
@@ -61,10 +83,10 @@ The current implementation is a safe placeholder. It validates the research ques
 
 ## Roadmap
 
-- Define the research task and evidence schemas.
-- Add pluggable retrieval and source-ranking interfaces.
-- Implement citation-aware synthesis.
-- Add evaluation datasets and quality metrics.
+- Add trusted retrieval adapters and source deduplication.
+- Add citation-aware model-backed synthesis with faithfulness checks.
+- Add evaluation datasets for retrieval recall, citation precision, and answer quality.
+- Add conflict detection for contradictory evidence.
 - Document threat models, limitations, and responsible-use guidance.
 
 ## Contributing

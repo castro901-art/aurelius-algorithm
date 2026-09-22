@@ -1,5 +1,25 @@
-"""Core package for the Aurelius research algorithm."""
+"""Public package exports for the Aurelius research algorithm."""
 
-from .algorithm import AureliusAlgorithm, ResearchResult
+from .algorithm import (
+    AureliusAlgorithm,
+    Citation,
+    CitationAwareSynthesizer,
+    EvidenceRecord,
+    InMemoryRetriever,
+    RankedEvidence,
+    ResearchQuestion,
+    ResearchResult,
+    SourceRanker,
+)
 
-__all__ = ["AureliusAlgorithm", "ResearchResult"]
+__all__ = [
+    "AureliusAlgorithm",
+    "Citation",
+    "CitationAwareSynthesizer",
+    "EvidenceRecord",
+    "InMemoryRetriever",
+    "RankedEvidence",
+    "ResearchQuestion",
+    "ResearchResult",
+    "SourceRanker",
+]
