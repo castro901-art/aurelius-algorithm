@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Aurelius Algorithm social preview</title>
+  <desc id="desc">Evidence-first infrastructure for rigorous AI research</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="1" stop-color="#123b55"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5eead4"/>
+      <stop offset="1" stop-color="#60a5fa"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <g opacity="0.16" stroke="#9bdcff" fill="none">
+    <path d="M0 520 C220 360 360 570 560 410 S920 160 1280 260" stroke-width="2"/>
+    <path d="M0 570 C220 410 360 620 560 460 S920 210 1280 310" stroke-width="1"/>
+    <path d="M80 0 V640 M240 0 V640 M400 0 V640 M560 0 V640 M720 0 V640 M880 0 V640 M1040 0 V640 M1200 0 V640"/>
+    <path d="M0 100 H1280 M0 260 H1280 M0 420 H1280 M0 580 H1280"/>
+  </g>
+  <g filter="url(#glow)" fill="url(#signal)">
+    <circle cx="820" cy="300" r="7"/><circle cx="1000" cy="220" r="7"/><circle cx="1120" cy="330" r="7"/>
+  </g>
+  <g stroke="url(#signal)" stroke-width="3" fill="none" opacity="0.92">
+    <path d="M820 300 L1000 220 L1120 330 L1000 430 L820 300"/>
+    <path d="M820 300 L820 470 L1000 430"/>
+  </g>
+  <g fill="#f8fafc" font-family="Arial, Helvetica, sans-serif">
+    <text x="104" y="190" font-size="28" letter-spacing="6" fill="#5eead4">AURELIUS / ALGORITHM</text>
+    <text x="100" y="300" font-size="64" font-weight="700">Evidence-first</text>
+    <text x="100" y="376" font-size="64" font-weight="700">AI research.</text>
+    <text x="104" y="450" font-size="24" fill="#cbd5e1">Traceable retrieval · transparent ranking · cited synthesis</text>
+  </g>
+  <rect x="104" y="500" width="170" height="4" rx="2" fill="#5eead4"/>
+  <text x="104" y="548" font-size="18" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif">MODULAR RESEARCH INFRASTRUCTURE</text>
+</svg>
